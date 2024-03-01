@@ -1,0 +1,668 @@
+﻿@model List<AssetDto>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+    <!-- search-popup -->
+
+    <div class="modal fade bs-example-modal-lg search-bg popup1" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content search-popup">
+                <div class="text-center">
+                    <a href="#" class="close2" data-dismiss="modal" aria-label="Close">× close</a>
+                </div>
+                <div class="row search-outer">
+                    <div class="col-md-11"><input type="text" placeholder="Search for products..." /></div>
+                    <div class="col-md-1 text-right"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /search-popup -->
+    <!-- slider-area -->
+    <section id="home" class="slider-area fix p-relative">
+
+        <div class="slider-active" style="background: #00173c;">
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image: url(img/slider/slider_img01.png); background-size: cover;">
+                <div class="container">
+                    <div class="row justify-content-center align-items-center">
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="slider-content s-slider-content mt-20">
+                                <h5 data-animation="fadeInUp" data-delay=".4s">Welcome</h5>
+                                <h2 data-animation="fadeInUp" data-delay=".4s">We Are Best In Industry</h2>
+                                <p data-animation="fadeInUp" data-delay=".6s">Fusce pulvinar, velit a posuere maximus, velit metus lacinia arcu, ultrices volutpat sapien neque vitae diam.</p>
+
+                                <div class="slider-btn mt-30 mb-160">
+                                    <a href="contact.html" class="btn ss-btn mr-40" data-animation="fadeInLeft" data-delay=".4s">Read More</a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                        </div>
+
+                    </div>
+                </div>
+                <!-- video -->
+                <video id="my-video" class="video2" muted loop autoplay>
+                    <source src="img/slider/slider-vedio.mp4" type="video/mp4">
+                    <source src="img/slider/slider-vedio.ogv" type="video/ogg">
+                    <source src="img/slider/slider-vedio.webm" type="video/webm">
+                </video>
+                <!-- /video -->
+            </div>
+
+
+        </div>
+
+
+    </section>
+    <!-- slider-area-end -->
+    <!-- about-area -->
+    <section class="about-area about-p pt-120 pb-120 p-relative fix">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="s-about-img p-relative  wow fadeInLeft animated" data-animation="fadeInLeft" data-delay=".4s">
+                        <img src="img/features/about_img.png" alt="img">
+                        <div class="about-text second-about">
+                            <span>50 <sub>+</sub></span>
+                            <p>Years of Experience</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="about-content s-about-content pl-30 wow fadeInRight  animated" data-animation="fadeInRight" data-delay=".4s">
+                        <div class="about-title second-title pb-25">
+                            <h2>Our Industrial Solution</h2>
+                        </div>
+                        <p>Aliquam ac sem et diam iaculis efficitur. Morbi in enim odio. Nullam quis volutpat est, sed dapibus sapien. Cras condimentum eu velit id tempor. Curabitur purus sapien, cursus sed nisl tristique, commodo vehicula arcu.</p>
+                        <p>Ut iaculis dignissim justo, ut scelerisque lacus gravida sit amet. Mauris at pharetra quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi accumsan hendrerit dapibus. Quisque auctor leo non nulla maximus, tincidunt lobortis diam dignissim.Teger eu venenatis tellus. Nullam vehicula magna id tellus accumsan blandit. Vivamus vehicula vel lorem vel purus sapien, cursus sed nisl dignissim.</p>
+                        <div class="slider-btn mt-20">
+                            <a href="about.html" class="btn ss-btn smoth-scroll">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- about-area-end -->
+    <!-- services-three-area -->
+    <section id="services-08" class="services-08 pt-100 pb-100 p-relative" style="background-image: url(img/bg/servies-bg.png); background-repeat: no-repeat;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title center-align mb-50 text-center">
+                        <h2>
+                            Why Choose Us
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="container bg-outer">
+            <div class="row services-08-item--wrapper mt-0">
+                <div class="col-lg-4 col-md-4">
+                    <div class="services-08-item">
+                        <div class="services-08-thumb">
+                            <img src="img/icon/sve-icon7.png" alt="circle_left">
+                        </div>
+                        <div class="services-08-content">
+                            <h3>
+                                <a href="single-service.html">All Maintenance</a>
+                            </h3>
+                            <p>Stop loss and take profit orders will help secure your investment. The system will automatically execute trades</p>
+                            <a href="single-service.html" class="readmore"><i class="far fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="services-08-item">
+                        <div class="services-08-thumb">
+                            <img src="img/icon/sve-icon8.png" alt="circle_left">
+                        </div>
+                        <div class="services-08-content">
+                            <h3>
+                                <a href="single-service.html">Genarel Contract</a>
+                            </h3>
+                            <p>Stop loss and take profit orders will help secure your investment. The system will automatically execute trades</p>
+                            <a href="single-service.html" class="readmore"><i class="far fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="services-08-item">
+                        <div class="services-08-thumb">
+                            <img src="img/icon/sve-icon9.png" alt="circle_left">
+                        </div>
+                        <div class="services-08-content">
+                            <h3><a href="single-service.html">Automobiles</a></h3>
+                            <p>Stop loss and take profit orders will help secure your investment. The system will automatically execute trades</p>
+                            <a href="single-service.html" class="readmore"><i class="far fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row services-08-item--wrapper mt-0">
+                <div class="col-lg-4 col-md-4">
+                    <div class="services-08-item">
+                        <div class="services-08-thumb">
+                            <img src="img/icon/sve-icon10.png" alt="circle_left">
+                        </div>
+                        <div class="services-08-content">
+                            <h3><a href="single-service.html">Mechanical Parts</a></h3>
+                            <p>Stop loss and take profit orders will help secure your investment. The system will automatically execute trades</p>
+                            <a href="single-service.html" class="readmore"><i class="far fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="services-08-item">
+                        <div class="services-08-thumb">
+                            <img src="img/icon/sve-icon11.png" alt="circle_left">
+                        </div>
+                        <div class="services-08-content">
+                            <h3><a href="single-service.html">Petroleum</a></h3>
+                            <p>Stop loss and take profit orders will help secure your investment. The system will automatically execute trades</p>
+                            <a href="single-service.html" class="readmore"><i class="far fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="services-08-item">
+                        <div class="services-08-thumb">
+                            <img src="img/icon/sve-icon12.png" alt="circle_left">
+                        </div>
+                        <div class="services-08-content">
+                            <h3><a href="single-service.html">24x7 Support</a></h3>
+                            <p>Stop loss and take profit orders will help secure your investment. The system will automatically execute trades</p>
+                            <a href="single-service.html" class="readmore"><i class="far fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+    <!-- services-three-area -->
+    <!-- project-area-->
+    <section id="project" class="project pt-20 pb-95 fix">
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-10">
+                    <div class="section-title text-left mb-50">
+                        <h2>Our Latest Projects</h2>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-10">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row portfolio-active">
+                <div class="col-xl-4">
+                    <div class="single-project mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="project-thumb">
+                            <img src="img/gallery/protfolio-img01.png" alt="img" class="img">
+                        </div>
+                        <div class="project-info">
+                            <p>Industry</p>
+                            <h4> <a href="projects-detail.html">Chemical Factory</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="single-project mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="project-thumb">
+                            <img src="img/gallery/protfolio-img02.png" alt="img" class="img">
+                        </div>
+                        <div class="project-info">
+                            <p>Industry</p>
+                            <h4> <a href="project-detail.html">Maintanance</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="single-project mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="project-thumb">
+                            <img src="img/gallery/protfolio-img03.png" alt="img" class="img">
+                        </div>
+                        <div class="project-info">
+                            <p>Industry</p>
+                            <h4> <a href="project-detail.html">Automobile</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="single-project mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="project-thumb">
+                            <img src="img/gallery/protfolio-img04.png" alt="img" class="img">
+                        </div>
+                        <div class="project-info">
+                            <p>Industry</p>
+                            <h4> <a href="project-detail.html">Petroleum </a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="single-project mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="project-thumb">
+                            <img src="img/gallery/protfolio-img05.png" alt="img" class="img">
+                        </div>
+                        <div class="project-info">
+                            <p>Industry</p>
+                            <h4> <a href="project-detail.html">Mechanical </a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="single-project mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="project-thumb">
+                            <img src="img/gallery/protfolio-img03.png" alt="img" class="img">
+                        </div>
+                        <div class="project-info">
+                            <p>Industry</p>
+                            <h4> <a href="project-detail.html">Automobile</a></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- project-area-end -->
+    <!-- counter-area -->
+    <div class="counter-area pb-120">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-4">
+                    <div class="row counter-bg p-relative">
+                        <div class="col-lg-12">
+                            <div class="single-counter wow fadeInUp animated mb-30" data-animation="fadeInDown animated" data-delay=".2s">
+                                <div class="icon">
+                                    <img src="img/icon/cn-iocn01.png" alt="img">
+                                </div>
+
+                                <div class="counter p-relative">
+                                    <span class="count">894</span>
+                                    <p>Saticfied Clients</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="single-counter wow fadeInUp animated mb-30" data-animation="fadeInDown animated" data-delay=".2s">
+                                <div class="icon">
+                                    <img src="img/icon/cn-iocn02.png" alt="img">
+                                </div>
+                                <div class="counter p-relative">
+                                    <span class="count">785</span>
+                                    <p>Project Completed</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="single-counter wow fadeInUp animated mb-30" data-animation="fadeInDown animated" data-delay=".2s">
+                                <div class="icon">
+                                    <img src="img/icon/cn-iocn03.png" alt="img">
+                                </div>
+
+                                <div class="counter p-relative">
+                                    <span class="count">697</span>
+                                    <p>Worked Employed</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="single-counter wow fadeInUp animated mb-30" data-animation="fadeInDown animated" data-delay=".2s">
+                                <div class="icon">
+                                    <img src="img/icon/cn-iocn04.png" alt="img">
+                                </div>
+
+                                <div class="counter p-relative">
+                                    <span class="count">948</span>
+                                    <p>Cup Of Coffee</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="contact-bg02">
+                        <div class="section-title center-align">
+                            <h2>
+                                Make Appointment
+                            </h2>
+                        </div>
+                        <form action="mail.php" method="post" class="contact-form mt-30">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="contact-field p-relative c-name mb-20">
+                                        <input type="text" id="firstn" name="firstn" placeholder="First Name" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="contact-field p-relative c-subject mb-20">
+                                        <input type="text" id="email" name="email" placeholder="Eamil" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="contact-field p-relative c-subject mb-20">
+                                        <input type="text" id="phone" name="phone" placeholder="Phone No." required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="contact-field p-relative c-subject mb-20">
+                                        <input type="text" id="subject" name="subject" placeholder="Subject">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="contact-field p-relative c-message mb-30">
+                                        <textarea name="message" id="message" cols="30" rows="10" placeholder="Write comments"></textarea>
+                                    </div>
+                                    <div class="slider-btn">
+                                        <button class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s"><span>Submit Now</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- counter-area-end -->
+    <!-- team-area -->
+    <section class="team-area2 fix p-relative pt-105 pb-80" style="background: #00173c;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 p-relative">
+                    <div class="section-title center-align mb-50 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
+                        <h2>
+                            Our Expert Team
+                        </h2>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row team-active">
+                <div class="col-xl-4">
+                    <div class="single-team mb-40">
+                        <div class="team-thumb">
+                            <div class="brd">
+                                <img src="img/team/team01.png" alt="img">
+
+                            </div>
+                        </div>
+                        <div class="team-info">
+                            <h4><a href="team-single.html">Bableo Dablo</a></h4>
+                            <p>Worker</p>
+                            <div class="team-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li> <a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="single-team mb-40">
+                        <div class="team-thumb">
+                            <div class="brd">
+                                <img src="img/team/team02.png" alt="img">
+                            </div>
+                        </div>
+                        <div class="team-info">
+                            <h4><a href="team-single.html">Dawon Crisen</a></h4>
+                            <p>Worker</p>
+                            <div class="team-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li> <a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="single-team mb-40">
+                        <div class="team-thumb">
+                            <div class="brd">
+                                <img src="img/team/team03.png" alt="img">
+                            </div>
+
+                        </div>
+                        <div class="team-info">
+                            <h4><a href="team-single.html">David Suarez</a></h4>
+                            <p>Worker</p>
+                            <div class="team-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li> <a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="single-team mb-40">
+                        <div class="team-thumb">
+                            <div class="brd">
+                                <img src="img/team/team04.png" alt="img">
+                            </div>
+
+                        </div>
+                        <div class="team-info">
+                            <h4><a href="team-single.html">Gerard Peano</a></h4>
+                            <p>Worker</p>
+                            <div class="team-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li> <a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="single-team mb-40">
+                        <div class="team-thumb">
+                            <div class="brd">
+                                <img src="img/team/team01.png" alt="img">
+                            </div>
+
+                        </div>
+                        <div class="team-info">
+                            <h4><a href="team-single.html">Ostin Green</a></h4>
+                            <p>Worker</p>
+                            <div class="team-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li> <a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="single-team mb-40">
+                        <div class="team-thumb">
+                            <div class="brd">
+                                <img src="img/team/team02.png" alt="img">
+                            </div>
+
+                        </div>
+                        <div class="team-info">
+                            <h4><a href="team-single.html">Norman Colins</a></h4>
+                            <p>Worker</p>
+                            <div class="team-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li> <a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- team-area-end -->
+    <!-- testimonial-area -->
+    <section class="testimonial-area pt-120" style="background-image: url(img/bg/testimonal-bg.png);background-color: #fff;background-position: center center;background-repeat: no-repeat;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title center-align mb-50 text-center">
+                        <h2>
+                            What Our Client Say’s
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="testimonial-active2">
+                        <div class="single-testimonial">
+                            <div class="testi-author">
+                                <img src="img/testimonial/testi_avatar.png" alt="img">
+                            </div>
+                            <div class="testi-author">
+                                <div class="ta-info">
+                                    <h6>Nina Farell</h6>
+                                    <span>Client Of Company</span>
+                                </div>
+                            </div>
+                            <p>“Vestibulum finibus non nulla sed convallis. Nunc id justo eu est condimentum mollis. Ut consequat, est sit amet venenatis ultrices, enim odio euismod justo, malesuada dictum ipsum diam non ipsum. Donec feugiat sit amet orci quis bibendum. Phasellus at ligula ac eros pulvinar scelerisque at eu libero. Proin imperdiet at massa eget vehicula”.</p>
+                        </div>
+                        <div class="single-testimonial">
+                            <div class="testi-author">
+                                <img src="img/testimonial/testi_avatar.png" alt="img">
+                            </div>
+                            <div class="testi-author">
+                                <div class="ta-info">
+                                    <h6>Oliver Dummer</h6>
+                                    <span>Client Of Company</span>
+                                </div>
+                            </div>
+                            <p>“Vestibulum finibus non nulla sed convallis. Nunc id justo eu est condimentum mollis. Ut consequat, est sit amet venenatis ultrices, enim odio euismod justo, malesuada dictum ipsum diam non ipsum. Donec feugiat sit amet orci quis bibendum. Phasellus at ligula ac eros pulvinar scelerisque at eu libero. Proin imperdiet at massa eget vehicula”.</p>
+                        </div>
+
+                        <div class="single-testimonial">
+                            <div class="testi-author">
+                                <img src="img/testimonial/testi_avatar.png" alt="img">
+                            </div>
+                            <div class="testi-author">
+                                <div class="ta-info">
+                                    <h6>Nina Farell</h6>
+                                    <span>Client Of Company</span>
+                                </div>
+                            </div>
+                            <p>“Vestibulum finibus non nulla sed convallis. Nunc id justo eu est condimentum mollis. Ut consequat, est sit amet venenatis ultrices, enim odio euismod justo, malesuada dictum ipsum diam non ipsum. Donec feugiat sit amet orci quis bibendum. Phasellus at ligula ac eros pulvinar scelerisque at eu libero. Proin imperdiet at massa eget vehicula”.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- testimonial-area-end -->
+    <!-- blog-area -->
+    <section id="blog" class="blog-area p-relative fix pt-90 pb-90">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="section-title center-align mb-50 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
+                        <h2>
+                            Latest Blog & News
+                        </h2>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-post2 hover-zoomin mb-30 wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
+                        <div class="blog-thumb2">
+                            <a href="blog-details.html"><img src="img/blog/inner_b1.jpg" alt="img"></a>
+                        </div>
+                        <div class="blog-content2">
+                            <div class="date-home">
+                                <i class="fal fa-calendar-alt"></i> 24th March 2021
+                            </div>
+                            <h4><a href="blog-details.html">Cras accumsan nulla nec lacus ultricies placerat.</a></h4>
+                            <p>Curabitur sagittis libero tincidunt tempor finibus. Mauris at dignissim ligula, nec tristique orci.</p>
+                            <div class="blog-btn"><a href="blog-details.html">Read More</a></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-post2 mb-30 hover-zoomin wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
+                        <div class="blog-thumb2">
+                            <a href="blog-details.html"><img src="img/blog/inner_b2.jpg" alt="img"></a>
+                        </div>
+                        <div class="blog-content2">
+                            <div class="date-home">
+                                <i class="fal fa-calendar-alt"></i> 24th March 2021
+                            </div>
+                            <h4><a href="blog-details.html">Dras accumsan nulla nec lacus ultricies placerat.</a></h4>
+                            <p>Curabitur sagittis libero tincidunt tempor finibus. Mauris at dignissim ligula, nec tristique orci.</p>
+                            <div class="blog-btn"><a href="blog-details.html">Read More</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-post2 mb-30 hover-zoomin wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
+                        <div class="blog-thumb2">
+                            <a href="blog-details.html"><img src="img/blog/inner_b3.jpg" alt="img"></a>
+                        </div>
+                        <div class="blog-content2">
+                            <div class="date-home">
+                                <i class="fal fa-calendar-alt"></i> 24th March 2021
+                            </div>
+                            <h4><a href="blog-details.html">Seas accumsan nulla nec lacus ultricies placerat.</a></h4>
+                            <p>Curabitur sagittis libero tincidunt tempor finibus. Mauris at dignissim ligula, nec tristique orci.</p>
+                            <div class="blog-btn"><a href="blog-details.html">Read More</a></div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    <!-- blog-area-end -->
+
