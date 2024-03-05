@@ -16,8 +16,6 @@ namespace CMMS.Domain.Interfaces
         Task<IEnumerable<Asset>> GetAssetsByLocationIdAsync(int locationId);
         Task<IEnumerable<Asset>> GetAssetsByPlanIdAsync(int planId);
         Task<IEnumerable<Asset>> SearchAssetsByNameAsync(string name);
-        Task<int> CountAsync(Expression<Func<Asset, bool>> predicate);
-
     }
 }
 

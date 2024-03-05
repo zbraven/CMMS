@@ -15,10 +15,12 @@ namespace CMMS.DataAccess.Repositories
     public class AssetRepository : Repository<Asset>, IAssetRepository
     {
         private readonly CMMSDbContext _context;
+        private readonly IAssetRepository _assetRepository;
 
-        public AssetRepository(CMMSDbContext context) : base(context)
+        public AssetRepository(CMMSDbContext context, IAssetRepository assetRepository) : base(context)
         {
             _context = context;
+            _assetRepository = assetRepository;
         }
 
         public async Task<IEnumerable<Asset>> GetAssetsByLocationIdAsync(int locationId)
@@ -46,10 +48,12 @@ namespace CMMS.DataAccess.Repositories
             return await _context.Set<Asset>().Where(a => a.Name.Contains(name)).ToListAsync();
         }
 
-        public async Task<int> CountAsync(Expression<Func<Asset, bool>> predicate)
+        public async Task<int> CountAsync()
         {
-            return await _context.Assets.CountAsync(predicate);
+            return await _assetRepository.CountAsync();
         }
+
+
     }
 
 }

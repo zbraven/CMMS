@@ -3,6 +3,7 @@ using CMMS.Business.Interfaces;
 using CMMS.Domain.Entities;
 using CMMS.Domain.Interfaces;
 using CMMS.Services.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,5 +56,13 @@ namespace CMMS.Business.Services
                 await _assetRepository.DeleteAsync(asset);
             }
         }
+
+
+        public async Task<int> GetTotalAssetsCountAsync()
+        {
+            var assets = await _assetRepository.GetAllAsync();
+            return assets.Count(); 
+        }
+
     }
 }

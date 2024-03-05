@@ -14,5 +14,7 @@ namespace CMMS.Business.Interfaces
         Task<AssetDto> CreateAssetAsync(AssetDto assetDto);
         Task UpdateAssetAsync(AssetDto assetDto);
         Task DeleteAssetAsync(int assetId);
+
+        Task<int> GetTotalAssetsCountAsync();
     }
 }
