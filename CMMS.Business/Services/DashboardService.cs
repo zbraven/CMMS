@@ -28,6 +28,7 @@ namespace CMMS.Business.Services
         {
             return await _context.Assets.CountAsync();
         }
+
         public async Task<decimal> GetAssetCountIncreasePercentageAsync()
         {
             var currentMonthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -40,10 +41,13 @@ namespace CMMS.Business.Services
 
             return ((decimal)(thisMonthCount - lastMonthCount) / lastMonthCount) * 100;
         }
+
+
         public async Task<int> GetActiveUsersCountAsync()
         {
             return await _context.Employees.CountAsync(e => e.IsActive);
         }
+
         public async Task<decimal> GetUserCountIncreasePercentageAsync()
         {
             var currentMonthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -56,10 +60,12 @@ namespace CMMS.Business.Services
 
             return ((decimal)(thisMonthActiveUsers - lastMonthActiveUsers) / lastMonthActiveUsers) * 100;
         }
+
         public async Task<int> GetPlannedTasksCountAsync()
         {
             return await _context.MaintenanceTasks.CountAsync();
         }
+
         public async Task<decimal> GetTaskCountIncreasePercentageAsync()
         {
             var lastPeriod = DateTime.Now.AddMonths(-1);
@@ -72,6 +78,7 @@ namespace CMMS.Business.Services
 
             return ((decimal)(thisPeriodTaskCount - lastPeriodTaskCount) / lastPeriodTaskCount) * 100;
         }
+
         public async Task<decimal> GetTotalCostForLastYearAsync()
         {
             var lastYearStart = new DateTime(DateTime.Now.Year - 1, 1, 1);
@@ -85,6 +92,7 @@ namespace CMMS.Business.Services
 
             return lastYearTasks.Sum(t => t.TaskMaterials.Sum(tm => tm.Quantity * tm.Material.Cost));
         }
+
         public async Task<IEnumerable<ActivityLogDto>> GetRecentActivityLogsAsync()
         {
             var recentLogs = await _context.ActivityLogs
@@ -101,6 +109,8 @@ namespace CMMS.Business.Services
 
             return recentLogs;
         }
+
+
         public async Task<Dictionary<string, int>> GetAssetTypeDistributionAsync()
         {
             var distribution = await _context.Assets
@@ -110,57 +120,54 @@ namespace CMMS.Business.Services
 
             return distribution;
         }
+
         public async Task<decimal> GetCostIncreaseFromPreviousMonthAsync()
         {
-            // Bu ayın ve geçen ayın başlangıç tarihlerini hesapla
-            var thisMonthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var lastMonthStart = thisMonthStart.AddMonths(-1);
+            // Bu metot, son bir ay içindeki maliyet artışını hesaplar
+            var lastMonth = DateTime.Now.AddMonths(-1);
+            var thisMonth = DateTime.Now;
 
-            // Geçen ayki toplam maliyet
             var lastMonthCost = await _context.MaintenanceTasks
-                                .Where(t => t.Date >= lastMonthStart && t.Date < thisMonthStart)
-                                .Include(t => t.TaskMaterials)
-                                .ThenInclude(tm => tm.Material)
-                                .SumAsync(t => t.TaskMaterials.Sum(tm => tm.Quantity * tm.Material.Cost));
+                                    .Where(t => t.Date.Month == lastMonth.Month && t.Date.Year == lastMonth.Year)
+                                    .Include(t => t.TaskMaterials)
+                                    .ThenInclude(tm => tm.Material)
+                                    .SumAsync(t => t.TaskMaterials.Sum(tm => tm.Quantity * tm.Material.Cost));
 
-            // Bu ayki toplam maliyet
             var thisMonthCost = await _context.MaintenanceTasks
-                                .Where(t => t.Date >= thisMonthStart)
-                                .Include(t => t.TaskMaterials)
-                                .ThenInclude(tm => tm.Material)
-                                .SumAsync(t => t.TaskMaterials.Sum(tm => tm.Quantity * tm.Material.Cost));
+                                    .Where(t => t.Date.Month == thisMonth.Month && t.Date.Year == thisMonth.Year)
+                                    .Include(t => t.TaskMaterials)
+                                    .ThenInclude(tm => tm.Material)
+                                    .SumAsync(t => t.TaskMaterials.Sum(tm => tm.Quantity * tm.Material.Cost));
 
-            if (lastMonthCost == 0) return thisMonthCost > 0 ? 100 : 0; // Eğer geçen ay maliyet yoksa ve bu ay varsa, %100 artış olarak hesapla
+            if (lastMonthCost == 0) return thisMonthCost > 0 ? 100 : 0;
 
-            // Yüzdesel artışı hesapla
             return ((thisMonthCost - lastMonthCost) / lastMonthCost) * 100;
         }
 
+
         public async Task<decimal> GetCostIncreaseFromPreviousYearAsync()
         {
-            // Bu yılın ve geçen yılın başlangıç tarihlerini hesapla
-            var thisYearStart = new DateTime(DateTime.Now.Year, 1, 1);
-            var lastYearStart = thisYearStart.AddYears(-1);
+            // Bu metot, son bir yıl içindeki maliyet artışını hesaplar
+            var lastYear = DateTime.Now.AddYears(-1);
+            var thisYear = DateTime.Now;
 
-            // Geçen yılki toplam maliyet
             var lastYearCost = await _context.MaintenanceTasks
-                                .Where(t => t.Date >= lastYearStart && t.Date < thisYearStart)
-                                .Include(t => t.TaskMaterials)
-                                .ThenInclude(tm => tm.Material)
-                                .SumAsync(t => t.TaskMaterials.Sum(tm => tm.Quantity * tm.Material.Cost));
+                                    .Where(t => t.Date.Year == lastYear.Year)
+                                    .Include(t => t.TaskMaterials)
+                                    .ThenInclude(tm => tm.Material)
+                                    .SumAsync(t => t.TaskMaterials.Sum(tm => tm.Quantity * tm.Material.Cost));
 
-            // Bu yılki toplam maliyet
             var thisYearCost = await _context.MaintenanceTasks
-                                .Where(t => t.Date >= thisYearStart)
-                                .Include(t => t.TaskMaterials)
-                                .ThenInclude(tm => tm.Material)
-                                .SumAsync(t => t.TaskMaterials.Sum(tm => tm.Quantity * tm.Material.Cost));
+                                    .Where(t => t.Date.Year == thisYear.Year)
+                                    .Include(t => t.TaskMaterials)
+                                    .ThenInclude(tm => tm.Material)
+                                    .SumAsync(t => t.TaskMaterials.Sum(tm => tm.Quantity * tm.Material.Cost));
 
-            if (lastYearCost == 0) return thisYearCost > 0 ? 100 : 0; // Eğer geçen yıl maliyet yoksa ve bu yıl varsa, %100 artış olarak hesapla
+            if (lastYearCost == 0) return thisYearCost > 0 ? 100 : 0;
 
-            // Yüzdesel artışı hesapla
             return ((thisYearCost - lastYearCost) / lastYearCost) * 100;
         }
+
 
         public async Task<decimal> GetTotalCostAllTimeAsync()
         {
@@ -172,7 +179,11 @@ namespace CMMS.Business.Services
             return totalCost;
         }
 
-       
+
+
+
+
+
     }
 
 }
