@@ -3,6 +3,7 @@ using CMMS.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace CMMS.Domain.Interfaces
         Task<IEnumerable<Asset>> GetAssetsByLocationIdAsync(int locationId);
         Task<IEnumerable<Asset>> GetAssetsByPlanIdAsync(int planId);
         Task<IEnumerable<Asset>> SearchAssetsByNameAsync(string name);
+        Task<int> CountAsync(Expression<Func<Asset, bool>> predicate);
+
     }
 }
 

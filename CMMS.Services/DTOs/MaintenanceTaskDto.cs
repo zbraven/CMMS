@@ -14,5 +14,6 @@ namespace CMMS.Services.DTOs
         public MaintenanceTaskStatus Status { get; set; }
         public MaintenancePriority MaintenancePriority { get; set; }
         public string Description { get; set; }
+        public bool IsPlanned { get; set; }
     }
 }

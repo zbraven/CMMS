@@ -3,6 +3,7 @@ using CMMS.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,5 +14,6 @@ namespace CMMS.Domain.Interfaces
         Task<IEnumerable<MaintenanceTask>> GetTasksByStatusAsync(MaintenanceTaskStatus status);
         Task<IEnumerable<MaintenanceTask>> GetTasksByAssetIdAsync(int assetId);
         Task<IEnumerable<MaintenanceTask>> GetTasksByPriorityAsync(MaintenancePriority priority);
+        Task<int> CountAsync(Expression<Func<MaintenanceTask, bool>> predicate);
     }
 }

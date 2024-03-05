@@ -16,5 +16,6 @@ namespace CMMS.Domain.Entities
         public string PhoneNumber { get; set; }
         public DateTime DateOfRecruitment { get; set; }
         public virtual ICollection<EmployeeRole> EmployeeRoles { get; set; }
+        public bool IsActive { get; set; }
     }
 }

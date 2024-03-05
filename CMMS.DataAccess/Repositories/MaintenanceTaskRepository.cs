@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,11 @@ namespace CMMS.DataAccess.Repositories
         public MaintenanceTaskRepository(CMMSDbContext context):base(context)
         {
             _context=context;
+        }
+
+        public async Task<int> CountAsync(Expression<Func<MaintenanceTask, bool>> predicate)
+        {
+            return await _context.Set<MaintenanceTask>().CountAsync(predicate);
         }
 
         public async Task<IEnumerable<MaintenanceTask>> GetTasksByAssetIdAsync(int assetId)

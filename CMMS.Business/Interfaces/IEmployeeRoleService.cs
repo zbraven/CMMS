@@ -1,16 +1,18 @@
-﻿    using CMMS.Services.DTOs;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+﻿using CMMS.Services.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-    namespace CMMS.Business.Interfaces
+namespace CMMS.Business.Interfaces
+{
+    public interface IEmployeeRoleService
     {
-        public interface IEmployeeRoleService
-        {
-            Task<IEnumerable<EmployeeRoleDto>> GetAllEmployeeRolesAsync();
-            Task AssignRoleToEmployeeAsync(EmployeeRoleDto employeeRoleDto);
-            Task RemoveRoleFromEmployeeAsync(int employeeId, int roleId);
-        }
+        Task<IEnumerable<EmployeeRoleDto>> GetAllEmployeeRolesAsync();
+        Task AssignRoleToEmployeeAsync(EmployeeRoleDto employeeRoleDto);
+        Task RemoveRoleFromEmployeeAsync(int employeeId, int roleId);
+        Task<EmployeeRoleDto> GetEmployeeRoleByIdsAsync(int employeeId, int roleId);
+
     }
+}

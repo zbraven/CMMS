@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,6 +44,11 @@ namespace CMMS.DataAccess.Repositories
         public async Task<IEnumerable<Asset>> SearchAssetsByNameAsync(string name)
         {
             return await _context.Set<Asset>().Where(a => a.Name.Contains(name)).ToListAsync();
+        }
+
+        public async Task<int> CountAsync(Expression<Func<Asset, bool>> predicate)
+        {
+            return await _context.Assets.CountAsync(predicate);
         }
     }
 

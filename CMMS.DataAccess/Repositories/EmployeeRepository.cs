@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,11 @@ namespace CMMS.DataAccess.Repositories
         public async Task<IEnumerable<Employee>> GetEmployeesByDepartmentAsync(string department)
         {
             return await _context.Set<Employee>().Where(x=>x.Department==department).ToListAsync();
+        }
+
+        public async Task<int> CountAsync(Expression<Func<Employee, bool>> predicate)
+        {
+            return await _context.Employees.CountAsync(predicate);
         }
     }
 }

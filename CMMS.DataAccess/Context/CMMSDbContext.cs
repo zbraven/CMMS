@@ -32,6 +32,7 @@ namespace CMMS.DataAccess.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<MaintenanceTask> MaintenanceTasks { get; set; }
         public DbSet<TaskMaterial> TaskMaterials { get; set; }
+    
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

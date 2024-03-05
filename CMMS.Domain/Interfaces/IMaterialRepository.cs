@@ -11,6 +11,8 @@ namespace CMMS.Domain.Interfaces
     {
         Task<IEnumerable<Material>> SearchMaterialsByNameAsync(string name);
         Task<IEnumerable<Material>> GetMaterialsByCostRangeAsync(decimal minCost, decimal maxCost);
+        Task<decimal> GetTotalCostAsync(DateTime startDate, DateTime endDate);
+
     }
 
 }

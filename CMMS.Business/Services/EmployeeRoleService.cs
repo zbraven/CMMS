@@ -42,5 +42,10 @@ namespace CMMS.Business.Services
                 await _employeeRoleRepository.DeleteAsync(employeeRole);
             }
         }
+
+        public Task<EmployeeRoleDto> GetEmployeeRoleByIdsAsync(int employeeId, int roleId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
