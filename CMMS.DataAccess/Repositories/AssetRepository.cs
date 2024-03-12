@@ -46,9 +46,10 @@ namespace CMMS.DataAccess.Repositories
             return await _context.Set<Asset>().Where(a => a.Name.Contains(name)).ToListAsync();
         }
 
-        public async Task<int> CountAsync(Expression<Func<Asset, bool>> predicate)
+        public async Task<int> CountAssetsByMonthAsync(int month, int year)
         {
-            return await _context.Assets.CountAsync(predicate);
+            return await _context.Assets
+                                 .CountAsync(a => a.AcceptedDate.Month == month && a.AcceptedDate.Year == year);
         }
     }
 

@@ -1,6 +1,8 @@
 ﻿using CMMS.Business.Interfaces;
+using CMMS.Domain.Enums;
 using CMMS.Services.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 
 namespace CMMS.Web.Controllers
@@ -32,24 +34,38 @@ namespace CMMS.Web.Controllers
             return View(asset);
         }
 
-        // Yeni Asset oluşturma formunu gösterir
         public IActionResult Create()
         {
+            // AssetType enum değerlerini SelectList'e dönüştür
+            ViewData["Type"] = new SelectList(Enum.GetValues(typeof(AssetType)).Cast<AssetType>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList(), "Value", "Text");
+
             return View();
         }
 
-        // Yeni bir Asset kaydı ekler ve index view'ına yönlendirir
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,SerialNumber,...")] AssetDto assetDto)
+        public async Task<IActionResult> Create([Bind("Id,Name,SerialNumber,Type,...")] AssetDto assetDto)
         {
             if (ModelState.IsValid)
             {
                 await _assetService.CreateAssetAsync(assetDto);
+                // Başarılı ekleme sonrası kullanıcıyı Asset listesine yönlendir
                 return RedirectToAction(nameof(Index));
             }
+            // Hata olması durumunda, dropdown listesi tekrar doldurulmalı
+            ViewData["Type"] = new SelectList(Enum.GetValues(typeof(AssetType)).Cast<AssetType>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList(), "Value", "Text", assetDto.Type);
+
             return View(assetDto);
         }
+
 
         // Asset düzenleme formunu gösterir
         public async Task<IActionResult> Edit(int id)

@@ -17,151 +17,180 @@ namespace CMMS.Business.Services
 {
     public class DashboardService : IDashboardService
     {
-        
+        private readonly IAssetRepository _assetRepository;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IMaintenanceTaskRepository _maintenanceTaskRepository;
+        private readonly IMaterialRepository _materialRepository;
+        private readonly IActivityLogRepository _activityLogRepository;
+
+        public DashboardService(IAssetRepository assetRepository, IEmployeeRepository employeeRepository, IMaintenanceTaskRepository maintenanceTaskRepository, IMaterialRepository materialRepository, IActivityLogRepository activityLogRepository)
+        {
+            _assetRepository = assetRepository;
+            _employeeRepository = employeeRepository;
+            _maintenanceTaskRepository = maintenanceTaskRepository;
+            _materialRepository = materialRepository;
+            _activityLogRepository = activityLogRepository;
+        }
+
+        //Total asset sayısını veren metodum
         public async Task<int> GetTotalAssetsCountAsync()
         {
-            var totalAssets = await _assetRepository.CountAsync(a => true); // Tüm varlıkların sayısını getir
-            return totalAssets;
+            return await _assetRepository.CountAsync();
         }
 
-        public async Task<decimal> GetAssetCountIncreasePercentageAsync()
+        //Total task sayısını veren metodum
+        public async Task<int> GetTotalMaintenanceTaskCountAsync()
         {
-            var lastMonth = DateTime.Today.AddMonths(-1);
-            var currentMonth = DateTime.Today;
-
-            var lastMonthAssetCount = await _assetRepository.CountAsync(a => a.AcceptedDate.Month == lastMonth.Month && a.AcceptedDate.Year == lastMonth.Year);
-            var thisMonthAssetCount = await _assetRepository.CountAsync(a => a.AcceptedDate.Month == currentMonth.Month && a.AcceptedDate.Year == currentMonth.Year);
-
-            if (lastMonthAssetCount == 0)
-            {
-                return thisMonthAssetCount > 0 ? 100 : 0; // Eğer geçen ay hiç varlık eklenmemişse ve bu ay varlık eklenmişse %100 artış, değilse %0 artış var demektir.
-            }
-
-            var increase = thisMonthAssetCount - lastMonthAssetCount;
-            return (decimal)increase / lastMonthAssetCount * 100; // Yüzdesel artışı hesapla
+            return await _maintenanceTaskRepository.CountAsync();
         }
 
+        //Total kullanıcı sayısını veren metodum
+        public async Task<int> GetTotalUserCountAsync()
+        {
+            return await _employeeRepository.CountAsync();
+        }
+
+        //Aktif kullanıcıların sayısını veren metodum
         public async Task<int> GetActiveUsersCountAsync()
         {
-            var activeUsersCount = await _employeeRepository.CountAsync(e => e.IsActive); // Aktif kullanıcıların sayısını getir
-            return activeUsersCount;
-        }
-
-        public async Task<decimal> GetUserCountIncreasePercentageAsync()
-        {
-            var lastMonth = DateTime.Today.AddMonths(-1);
-            var currentMonth = DateTime.Today;
-
-            var lastMonthUserCount = await _employeeRepository.CountAsync(e => e.DateOfRecruitment.Month == lastMonth.Month && e.DateOfRecruitment.Year == lastMonth.Year);
-            var thisMonthUserCount = await _employeeRepository.CountAsync(e => e.DateOfRecruitment.Month == currentMonth.Month && e.DateOfRecruitment.Year == currentMonth.Year);
-
-            if (lastMonthUserCount == 0)
-            {
-                return thisMonthUserCount > 0 ? 100 : 0; // Eğer geçen ay hiç kullanıcı eklenmemişse ve bu ay kullanıcı eklenmişse %100 artış, değilse %0 artış var demektir.
-            }
-
-            var increase = thisMonthUserCount - lastMonthUserCount;
-            return (decimal)increase / lastMonthUserCount * 100; // Yüzdesel artışı hesapla
+            var activeUsers = await _employeeRepository.GetActiveUsersAsync();
+            return activeUsers.Count();
         }
 
 
-        public async Task<int> GetPlannedTasksCountAsync()
-        {
-            var plannedTasksCount = await _maintenanceTaskRepository.CountAsync(mt => mt.IsPlanned); // Planlı görevlerin sayısını getir (IsPlanned bir örnek property'dir)
-            return plannedTasksCount;
-        }
-
-        public async Task<decimal> GetTotalCostForLastYearAsync()
-        {
-            var oneYearAgo = DateTime.Today.AddYears(-1);
-            var totalCost = await _maintenanceTaskRepository.GetTotalCostAsync(mt => mt.Date >= oneYearAgo); // Son 1 yılda yapılan tüm bakım işlemlerinin maliyetini topla
-            return totalCost;
-        }
-
-
-
-        public async Task<decimal> GetTotalCostForLastYearAsync()
-        {
-            var oneYearAgo = DateTime.Today.AddYears(-1);
-            var totalCost = await _maintenanceTaskRepository.GetTotalCostAsync(mt => mt.Date >= oneYearAgo); // Son 1 yılda yapılan tüm bakım işlemlerinin maliyetini topla
-            return totalCost;
-        }
-
-
-
-        public async Task<IEnumerable<ActivityLogDto>> GetRecentActivityLogsAsync()
-        {
-            var recentLogs = await _activityLogRepository.GetAllAsync()
-                                .OrderByDescending(log => log.Date)
-                                .Take(3)
-                                .ToListAsync(); // En son eklenen 3 aktivite logunu getir
-
-            return _mapper.Map<IEnumerable<ActivityLogDto>>(recentLogs);
-        }
-
-
-
-        public async Task<Dictionary<string, int>> GetAssetTypeDistributionAsync()
+        //Asset Tiplerine göre oranlama yapan metodum
+        public async Task<IEnumerable<AssetTypeDistributionDto>> GetAssetTypeDistributionAsync()
         {
             var assets = await _assetRepository.GetAllAsync();
             var distribution = assets.GroupBy(a => a.Type)
-                                     .ToDictionary(g => g.Key.ToString(), g => g.Count()); // Varlık türlerine göre grupla ve her biri için sayım yap
+                                     .Select(g => new AssetTypeDistributionDto
+                                     {
+                                         AssetType = g.Key,
+                                         Count = g.Count()
+                                     }).ToList();
 
             return distribution;
         }
 
 
+
         public async Task<decimal> GetCostIncreaseFromPreviousMonthAsync()
         {
-            var lastMonth = DateTime.Today.AddMonths(-1);
-            var currentMonth = DateTime.Today;
+            // Önceki ayın ilk ve son gününü hesapla
+            var lastMonthFirstDay = new DateTime(DateTime.Now.Year, DateTime.Now.AddMonths(-1).Month, 1);
+            var lastMonthLastDay = lastMonthFirstDay.AddMonths(1).AddDays(-1);
 
-            var lastMonthCost = await _maintenanceTaskRepository.GetTotalCostAsync(mt => mt.Date.Month == lastMonth.Month && mt.Date.Year == lastMonth.Year);
-            var thisMonthCost = await _maintenanceTaskRepository.GetTotalCostAsync(mt => mt.Date.Month == currentMonth.Month && mt.Date.Year == currentMonth.Year);
+            // Bu ayın ilk ve son gününü hesapla
+            var thisMonthFirstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var thisMonthLastDay = thisMonthFirstDay.AddMonths(1).AddDays(-1);
 
+            // Önceki ayın toplam maliyetini al
+            var lastMonthCost = await _materialRepository.GetTotalCostAsync(lastMonthFirstDay, lastMonthLastDay);
+
+            // Bu ayın toplam maliyetini al
+            var thisMonthCost = await _materialRepository.GetTotalCostAsync(thisMonthFirstDay, thisMonthLastDay);
+
+            // Eğer önceki ayın maliyeti 0 ise, %100 artış olarak kabul edilir
             if (lastMonthCost == 0)
             {
-                return thisMonthCost > 0 ? 100 : 0; // Eğer geçen ay hiç maliyet yoksa ve bu ay maliyet varsa %100 artış, yoksa %0 artış var demektir.
+                return thisMonthCost > 0 ? 100 : 0;
             }
 
-            var increase = thisMonthCost - lastMonthCost;
-            return (decimal)increase / lastMonthCost * 100; // Yüzdesel artışı hesapla
-        }
-
-        public async Task<decimal> GetCostIncreaseFromPreviousYearAsync()
-        {
-            var lastYear = DateTime.Today.AddYears(-1);
-            var currentYear = DateTime.Today;
-
-            var lastYearCost = await _maintenanceTaskRepository.GetTotalCostAsync(mt => mt.Date.Year == lastYear.Year);
-            var thisYearCost = await _maintenanceTaskRepository.GetTotalCostAsync(mt => mt.Date.Year == currentYear.Year);
-
-            if (lastYearCost == 0)
-            {
-                return thisYearCost > 0 ? 100 : 0; // Eğer geçen yıl hiç maliyet yoksa ve bu yıl maliyet varsa %100 artış, yoksa %0 artış var demektir.
-            }
-
-            var increase = thisYearCost - lastYearCost;
-            return (decimal)increase / lastYearCost * 100; // Yüzdesel artışı hesapla
+            // Yüzdesel artışı hesapla
+            return ((thisMonthCost - lastMonthCost) / lastMonthCost) * 100;
         }
 
 
         public async Task<decimal> GetTotalCostAllTimeAsync()
         {
-            var totalCost = await _maintenanceTaskRepository.GetTotalCostAsync(mt => true); // Tüm zamanlar için toplam maliyeti hesapla
+            // Tüm zamanlar için toplam malzeme maliyetini al
+            var totalCost = await _materialRepository.GetTotalCostAllTimeAsync();
             return totalCost;
         }
 
 
-        public async Task<Dictionary<string, int>> GetAssetTypeDistributionAsync()
+        //Aktif Kullanıcı Oranı Hesap
+        public async Task<decimal> GetUserCountIncreasePercentageAsync()
         {
-            var assets = await _assetRepository.GetAllAsync();
-            var distribution = assets.GroupBy(a => a.Type)
-                                     .ToDictionary(g => g.Key.ToString(), g => g.Count()); // Varlık türlerine göre grupla ve her biri için sayım yap
+            var lastMonthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-1);
+            var currentMonthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
 
-            return distribution;
+            var lastMonthActiveUsers = await _employeeRepository.CountActiveUsersByDateRangeAsync(lastMonthStart, currentMonthStart.AddTicks(-1));
+            var thisMonthActiveUsers = await _employeeRepository.CountActiveUsersByDateRangeAsync(currentMonthStart, DateTime.Now);
+
+            if (lastMonthActiveUsers == 0) return thisMonthActiveUsers > 0 ? 100 : 0;
+
+            return ((decimal)(thisMonthActiveUsers - lastMonthActiveUsers) / lastMonthActiveUsers) * 100;
         }
 
+
+        public async Task<decimal> GetCostIncreaseFromPreviousYearAsync()
+        {
+            var currentYear = DateTime.Now.Year;
+            var previousYear = currentYear - 1;
+
+            var currentYearCost = await _materialRepository.GetTotalCostByYearAsync(currentYear);
+            var previousYearCost = await _materialRepository.GetTotalCostByYearAsync(previousYear);
+
+            if (previousYearCost == 0)
+            {
+                return currentYearCost > 0 ? 100 : 0; // Eğer önceki yılın maliyeti yoksa, %100 artış olarak kabul edilir.
+            }
+
+            return ((currentYearCost - previousYearCost) / previousYearCost) * 100;
+        }
+
+
+        public async Task<decimal> GetAssetCountIncreasePercentageAsync()
+        {
+            var currentMonth = DateTime.Now.Month;
+            var currentYear = DateTime.Now.Year;
+            var lastMonth = DateTime.Now.AddMonths(-1).Month;
+            var lastYear = DateTime.Now.AddMonths(-1).Year;
+
+            var lastMonthCount = await _assetRepository.CountAssetsByMonthAsync(lastMonth, lastYear);
+            var thisMonthCount = await _assetRepository.CountAssetsByMonthAsync(currentMonth, currentYear);
+
+            if (lastMonthCount == 0)
+            {
+                return thisMonthCount > 0 ? 100 : 0; // Eğer önceki ay varlık eklenmemişse, %100 artış olarak kabul edilir.
+            }
+
+            return ((decimal)(thisMonthCount - lastMonthCount) / lastMonthCount) * 100;
+        }
+
+        public async Task<IEnumerable<ActivityLogDto>> GetRecentActivityLogsAsync()
+        {
+            var recentLogs = await _activityLogRepository.GetRecentActivityLogsAsync(3);
+            // DTO'ya dönüştürme işlemi (varsa AutoMapper kullanabilirsiniz)
+            var recentLogsDto = recentLogs.Select(log => new ActivityLogDto
+            {
+                Id = log.Id,
+                Date = log.Date,
+                Notes = log.Notes,
+                EmployeeId = log.EmployeeId,
+                MaintenanceTaskId = log.MaintenanceTaskId
+                // Diğer alanlar...
+            });
+
+            return recentLogsDto;
+        }
+
+        public async Task<decimal> GetTaskCountIncreasePercentageAsync()
+        {
+            var lastMonth = DateTime.Now.AddMonths(-1);
+            var thisMonth = DateTime.Now;
+
+            var lastMonthTaskCount = await _maintenanceTaskRepository.CountTasksByMonthAsync(lastMonth.Month, lastMonth.Year);
+            var thisMonthTaskCount = await _maintenanceTaskRepository.CountTasksByMonthAsync(thisMonth.Month, thisMonth.Year);
+
+            if (lastMonthTaskCount == 0)
+            {
+                return thisMonthTaskCount > 0 ? 100 : 0; // Eğer geçen ay görev eklenmemişse, %100 artış olarak kabul edilir.
+            }
+
+            return ((decimal)(thisMonthTaskCount - lastMonthTaskCount) / lastMonthTaskCount) * 100;
+        }
     }
 
 }

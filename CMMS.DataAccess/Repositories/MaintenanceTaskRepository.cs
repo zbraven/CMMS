@@ -22,10 +22,7 @@ namespace CMMS.DataAccess.Repositories
             _context=context;
         }
 
-        public async Task<int> CountAsync(Expression<Func<MaintenanceTask, bool>> predicate)
-        {
-            return await _context.Set<MaintenanceTask>().CountAsync(predicate);
-        }
+    
 
         public async Task<IEnumerable<MaintenanceTask>> GetTasksByAssetIdAsync(int assetId)
         {
@@ -40,6 +37,13 @@ namespace CMMS.DataAccess.Repositories
         public async Task<IEnumerable<MaintenanceTask>> GetTasksByStatusAsync(MaintenanceTaskStatus status)
         {
             return await _context.Set<MaintenanceTask>().Where(x => x.Status == status).ToListAsync();
+        }
+
+
+        public async Task<int> CountTasksByMonthAsync(int month, int year)
+        {
+            return await _context.MaintenanceTasks
+                                 .CountAsync(t => t.Date.Month == month && t.Date.Year == year);
         }
     }
 }

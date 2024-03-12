@@ -14,6 +14,8 @@ namespace CMMS.Domain.Interfaces
         Task<IEnumerable<MaintenanceTask>> GetTasksByStatusAsync(MaintenanceTaskStatus status);
         Task<IEnumerable<MaintenanceTask>> GetTasksByAssetIdAsync(int assetId);
         Task<IEnumerable<MaintenanceTask>> GetTasksByPriorityAsync(MaintenancePriority priority);
-        Task<int> CountAsync(Expression<Func<MaintenanceTask, bool>> predicate);
+       
+        Task<int> CountTasksByMonthAsync(int month, int year);
+
     }
 }

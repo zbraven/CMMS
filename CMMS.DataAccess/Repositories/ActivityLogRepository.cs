@@ -44,6 +44,17 @@ namespace CMMS.DataAccess.Repositories
         {
             return await _context.Set<ActivityLog>().Where(x => x.Date>= startDate && x.Date<= finishDate).ToListAsync();   
         }
+
+        
+
+        public async Task<IEnumerable<ActivityLog>> GetRecentActivityLogsAsync(int count)
+        {
+            return await _context.ActivityLogs
+                                 .OrderByDescending(a => a.Date) // Tarihe göre en son eklenenlerden başla
+                                 .Take(count) // Sadece istenilen sayıda log al
+                                 .ToListAsync();
+        }
+
     }
 }
 

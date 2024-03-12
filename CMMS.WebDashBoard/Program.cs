@@ -42,6 +42,7 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ITaskMaterialRepository, TaskMaterialRepository>();
 
 
+
 // Servislerin eklenmesi
 builder.Services.AddScoped<IActivityLogService, ActivityLogService>();
 builder.Services.AddScoped<IAssetService, AssetService>();
@@ -55,6 +56,8 @@ builder.Services.AddScoped<IPlanService, PlanService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<ITaskMaterialService, TaskMaterialService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+
 
 var app = builder.Build();
 
@@ -75,6 +78,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+     pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 
 app.Run();

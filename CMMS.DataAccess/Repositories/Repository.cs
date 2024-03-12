@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,6 +49,20 @@ namespace CMMS.DataAccess.Repositories
             _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();
             return entity;
+        }
+
+
+        //Saydirma
+        public async Task<int> CountAsync(Expression<Func<T, bool>> predicate = null)
+        {
+            if (predicate == null)
+            {
+                return await _context.Set<T>().CountAsync();
+            }
+            else
+            {
+                return await _context.Set<T>().CountAsync(predicate);
+            }
         }
     }
 }

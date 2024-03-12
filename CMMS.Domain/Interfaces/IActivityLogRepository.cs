@@ -12,5 +12,7 @@ namespace CMMS.Domain.Interfaces
         Task<IEnumerable<ActivityLog>> GetEmployeeWorks(int employeeId); 
         Task<IEnumerable<ActivityLog>> GetStartAndFinishDateLogsAsync(DateTime startDate, DateTime finishDate);
         Task<IEnumerable<ActivityLog>> GetRecentLogsAsync(int count);
+        Task<IEnumerable<ActivityLog>> GetRecentActivityLogsAsync(int count);
+
     }
 }

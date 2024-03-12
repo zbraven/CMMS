@@ -55,6 +55,8 @@ builder.Services.AddScoped<IPlanService, PlanService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<ITaskMaterialService, TaskMaterialService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+
 
 var app = builder.Build();
 

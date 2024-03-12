@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard Page";
 }
 
 <div class="page-content-wrapper ">
@@ -30,13 +31,13 @@
                     </div>
                     <div class="card-body">
                         <div class="border-bottom pb-4">
-                            <span class="badge badge-success"> +11% </span> <span class="ml-2 text-muted">Önceki Aya Göre</span>
+                            <span class="badge badge-success"> % @Model.UserCountIncreasePercentage </span> <span class="ml-2 text-muted">Önceki Aya Göre</span>
                         </div>
                         <div class="mt-4 text-muted">
                             <div class="float-right">
-                                <p class="m-0">Toplam : 1325</p>
+                                <p class="m-0">Toplam Varlık : @Model.TotalAssetsCount</p>
                             </div>
-                            <h5 class="m-0">1456<i class="mdi mdi-arrow-up text-success ml-2"></i></h5>
+                           
 
                         </div>
                     </div>
@@ -48,17 +49,17 @@
                         <div class="mini-stat-icon">
                             <i class="mdi mdi-account-network float-right mb-0"></i>
                         </div>
-                        <h6 class="text-uppercase mb-0">AKTİF KULLANICILAR</h6>
+                        <h6 class="text-uppercase mb-0">KULLANICILAR</h6>
                     </div>
                     <div class="card-body">
                         <div class="border-bottom pb-4">
-                            <span class="badge badge-success"> +22% </span> <span class="ml-2 text-muted">Önceki Aya Göre</span>
+                            <span class="badge badge-success"> % @Model.UserCountIncreasePercentage </span> <span class="ml-2 text-muted">Önceki Aya Göre</span>
                         </div>
                         <div class="mt-4 text-muted">
                             <div class="float-right">
-                                <p class="m-0">Toplam : 3426</p>
+                                <p class="m-0">Toplam : @Model.TotalUserCount</p>
                             </div>
-                            <h5 class="m-0">3567<i class="mdi mdi-arrow-up text-success ml-2"></i></h5>
+                           
 
                         </div>
                     </div>
@@ -70,17 +71,17 @@
                         <div class="mini-stat-icon">
                             <i class="mdi mdi-tag-text-outline float-right mb-0"></i>
                         </div>
-                        <h6 class="text-uppercase mb-0">PLANLI GÖREVLER</h6>
+                        <h6 class="text-uppercase mb-%0">GÖREVLER</h6>
                     </div>
                     <div class="card-body">
                         <div class="border-bottom pb-4">
-                            <span class="badge badge-danger"> -02% </span> <span class="ml-2 text-muted">Son 30 Gün</span>
+                            <span class="badge badge-success">% @Model.TaskCountIncreasePercentage </span> <span class="ml-2 text-muted">Son 30 Gün</span>
                         </div>
                         <div class="mt-4 text-muted">
                             <div class="float-right">
-                                <p class="m-0">Toplam : 15.8</p>
+                                <p class="m-0">Toplam : @Model.TotalMaintenanceTaskCount</p>
                             </div>
-                            <h5 class="m-0">14.5<i class="mdi mdi-arrow-down text-danger ml-2"></i></h5>
+                           
 
                         </div>
                     </div>
@@ -96,13 +97,13 @@
                     </div>
                     <div class="card-body">
                         <div class="border-bottom pb-4">
-                            <span class="badge badge-success"> +10% </span> <span class="ml-2 text-muted">Son 1 Yıl</span>
+                            <span class="badge badge-success"> % @Model.CostIncreaseFromPreviousYear </span> <span class="ml-2 text-muted">Son 1 Yıl</span>
                         </div>
                         <div class="mt-4 text-muted">
                             <div class="float-right">
-                                <p class="m-0">Toplam : 14256</p>
+                                <p class="m-0">Toplam : @Model.TotalCostAllTime₺</p>
                             </div>
-                            <h5 class="m-0">15234<i class="mdi mdi-arrow-up text-success ml-2"></i></h5>
+                          
 
                         </div>
                     </div>
@@ -302,7 +303,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="card m-b-30">
+                        <div class="card m-b-10">
                             <div class="card-body">
                                 <h4 class="mt-0 header-title mb-4">Varlık Türlerine Göre Dağılım</h4>
                                 <div id="morris-donut-example" class="morris-charts" style="height: 265px"></div>
@@ -320,3 +321,15 @@
 
 </div> <!-- Page content Wrapper -->
                 </div> <!-- content -->
+@section Scripts {
+    <script>
+        var assetTypeDistribution = @Html.Raw(Json.Serialize(Model.AssetTypeDistribution.Select(x => new { label = x.AssetType.ToString(), value = x.Count })));
+
+        Morris.Donut({
+            element: 'morris-donut-example',
+            data: assetTypeDistribution,
+            resize: true,
+            colors: ['#508aeb', '#f2f2f2', '#ffbb44', '#ff6b6b']
+        });
+    </script>
+}

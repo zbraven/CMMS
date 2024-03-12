@@ -110,12 +110,7 @@
         this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b'], ['Series A', 'Series B'], ['#508aeb', '#fcc24c']);
 
         //creating donut chart
-        var $donutData = [
-            {label: "Bitcoin", value: 12},
-            {label: "Ethereum", value: 42},
-            {label: "Cardano", value: 20},
-            {label: "Ripple", value: 26}
-        ];
+        
         this.createDonutChart('morris-donut-example', $donutData, ['#54cc96', "#508aeb", '#ff5560', '#fcc24c']);
 
     },

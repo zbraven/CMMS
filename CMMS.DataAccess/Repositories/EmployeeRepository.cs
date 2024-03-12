@@ -25,9 +25,17 @@ namespace CMMS.DataAccess.Repositories
             return await _context.Set<Employee>().Where(x=>x.Department==department).ToListAsync();
         }
 
-        public async Task<int> CountAsync(Expression<Func<Employee, bool>> predicate)
+      
+
+        public async Task<IEnumerable<Employee>> GetActiveUsersAsync()
         {
-            return await _context.Employees.CountAsync(predicate);
+            return await _context.Set<Employee>().Where(e => e.IsActive).ToListAsync();
+        }
+
+        public async Task<int> CountActiveUsersByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            return await _context.Set<Employee>()
+                                 .CountAsync(e => e.IsActive && e.DateOfRecruitment >= startDate && e.DateOfRecruitment <= endDate);
         }
     }
 }

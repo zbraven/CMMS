@@ -37,5 +37,21 @@ namespace CMMS.DataAccess.Repositories
         {
             return await _context.Set<Material>().Where(m => m.Name.Contains(name)).ToListAsync();
         }
+
+        public async Task<decimal> GetTotalCostAllTimeAsync()
+        {
+            // Tüm malzemelerin maliyetlerinin toplamını hesapla
+            return await _context.Materials.SumAsync(m => m.Cost);
+        }
+
+        public async Task<decimal> GetTotalCostByYearAsync(int year)
+        {
+            var startDate = new DateTime(year, 1, 1);
+            var endDate = new DateTime(year, 12, 31);
+
+            return await _context.Materials
+                                 .Where(m => m.PurchaseDate >= startDate && m.PurchaseDate <= endDate)
+                                 .SumAsync(m => m.Cost);
+        }
     }
 }

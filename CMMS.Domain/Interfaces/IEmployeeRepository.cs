@@ -11,7 +11,10 @@ namespace CMMS.Domain.Interfaces
     public interface IEmployeeRepository : IRepository<Employee>
     {
         Task<IEnumerable<Employee>> GetEmployeesByDepartmentAsync(string department);
-        Task<int> CountAsync(Expression<Func<Employee, bool>> predicate);
+        
+        Task<IEnumerable<Employee>> GetActiveUsersAsync();
+        Task<int> CountActiveUsersByDateRangeAsync(DateTime startDate, DateTime endDate);
+
 
     }
 }
